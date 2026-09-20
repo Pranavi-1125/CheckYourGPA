@@ -23,7 +23,7 @@ addSub.addEventListener("click", function() {
                 <option value="E">E</option>
             </select>
         </td>
-        <td><button type="button" onclick="DeleteRow(this)">Delete</button></td>
+        <td><button id="deleteBtn" type="button" onclick="DeleteRow(this)">Delete</button></td>
     `;
     tableBody.appendChild(newRow);
 });
