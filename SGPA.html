@@ -4,14 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculate SGPA</title>
+    <link rel="stylesheet" href="SGPA.css">
 </head>
 <body>
     <nav>
         <h1>Calculate your SGPA</h1>
-        <p>Enter your grades and credits to calculate your SGPA</p>
+        <p>Enter your subject, credit and grade to calculate your SGPA</p>
     </nav>
-    <div>
-        
+    <div id="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="subjectTableBody">
+                <tr>
+                    <td><input class="subject-input" type="text" name="subject" placeholder="Subject"></td>
+                    <td><input class="credit-input" type="number" name="credit" min="1" max="4" placeholder="Credit"></td>
+                    <td><select class="grade-input" name="grade">
+                        <option value="O">O</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select></td>
+                    <td><button id="deleteBtn" type="button" onclick="DeleteRow(this)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
+    <button type="button" id="addSubject" onclick="addRow()">+ Add Subject</button>
+    <button id="calculateBtn" type="submit" onclick="calculateSGPA()">Calculate SGPA</button>
+    <p id="result"></p>
+    <script src="SGPA.js"></script>
 </body>
 </html>

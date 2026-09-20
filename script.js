@@ -1,5 +1,6 @@
 function buttonSGPA(){
-    alert("You clicked on SGPA button");
+    // alert("You clicked on SGPA button");
+    location.href = "sgpa.html";
 }
 
 function buttonCGPA(){
