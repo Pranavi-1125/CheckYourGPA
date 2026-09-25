@@ -49,8 +49,107 @@ calculateBtn.addEventListener("click", function() {
             val += parseInt(credit) * gradePoints[grade];
             num = val / cal;
             num = num.toFixed(2);
-            resultDiv.innerHTML = "Total Points: " + val;
-            resultDiv.innerHTML = "Total Credits: " + cal;
-            resultDiv.innerHTML = "Your SGPA is: " + num;
+            resultDiv.innerHTML =
+                "Total Points: " + val +
+                "<br>Total Credits: " + cal +
+                "<br>Your SGPA is: " + num;
 });
+});
+
+// --------------------------------------------------
+
+const semesterTableBody = document.getElementById("semesterTableBody");
+const addSemester = document.getElementById("addSemester");
+const calculateCGPABtn = document.getElementById("calculateCGPABtn");
+const cgpaResult = document.getElementById("cgpaResult");
+
+let semesterCount = 1;
+
+// Add semester
+addSemester.addEventListener("click", function() {
+    semesterCount++;
+
+    const newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>Semester ${semesterCount}</td>
+
+        <td>
+            <input 
+                class="sgpa-input" 
+                type="number" 
+                step="0.01" 
+                min="0" 
+                max="10" 
+                placeholder="SGPA"
+            >
+        </td>
+
+        <td>
+            <input 
+                class="semester-credit-input" 
+                type="number" 
+                min="1" 
+                placeholder="Credits"
+            >
+        </td>
+
+        <td>
+            <button 
+                type="button" 
+                onclick="deleteSemester(this)"
+                id="deleteBtn"
+            >
+                Delete
+            </button>
+        </td>
+    `;
+
+    semesterTableBody.appendChild(newRow);
+});
+
+
+// Delete semester
+function deleteSemester(button) {
+    const row = button.parentNode.parentNode;
+    row.remove();
+}
+
+
+// Calculate CGPA
+calculateCGPABtn.addEventListener("click", function() {
+
+    let totalWeightedPoints = 0;
+    let totalCredits = 0;
+
+    const rows = semesterTableBody.querySelectorAll("tr");
+
+    rows.forEach(function(row) {
+
+        const sgpa = parseFloat(
+            row.querySelector(".sgpa-input").value
+        );
+
+        const credits = parseFloat(
+            row.querySelector(".semester-credit-input").value
+        );
+
+        if (!isNaN(sgpa) && !isNaN(credits)) {
+
+            totalWeightedPoints += sgpa * credits;
+            totalCredits += credits;
+
+        }
+    });
+
+    if (totalCredits === 0) {
+        cgpaResult.innerHTML = "Please enter SGPA and credits.";
+        return;
+    }
+
+    const cgpa = totalWeightedPoints / totalCredits;
+
+    cgpaResult.innerHTML =
+        "Total Credits: " + totalCredits +
+        "<br>Your CGPA is: " + cgpa.toFixed(2);
 });
